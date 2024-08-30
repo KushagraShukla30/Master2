@@ -33,7 +33,27 @@
           </a>
         </li> 
       @endif
-        
+
+      @if (Auth::check() && (Auth::user()->role->slug === 'super-admin' || Auth::user()->role->slug === 'administrator'))
+        <li class="sidebar-header">{{ __('Activity') }}</li>
+      {{-- @endif
+      @if (Auth::check() && (Auth::user()->role->slug === 'super-admin' || Auth::user()->role->slug === 'administrator')) --}}
+        <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ Auth::user()->role->slug === 'super-admin' ? route('user.index') : route('admin.users.index') }}">
+          <i class="fas fa-user align-middle"></i>
+          <span class="align-middle">{{ __('Fetch Job Sheet') }}</span>
+        </a>
+        </li>
+      @endif
+      
+      @if (Auth::check() && (Auth::user()->role->slug === 'super-admin'))
+       <li class="sidebar-item">
+          <a class="sidebar-link" href="{{ route('roles.index') }}">
+            <i class="fas fa-user-shield align-middle"></i> <span class="align-middle">{{ __('DGMS Safety Checklist') }}</span>
+          </a>
+        </li> 
+      @endif
+      
       @if (Auth::check() && (Auth::user()->role->slug === 'super-admin' || Auth::user()->role->slug === 'administrator' || Auth::user()->role->slug === 'hr-manager'))
         <li class="sidebar-header">{{ __('Employee Management') }}</li>
       {{-- @endif
